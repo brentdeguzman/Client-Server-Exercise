@@ -6,10 +6,10 @@ import java.net.ServerSocket;
 public class ServerConnection {
 
     public static void serverConnection() throws IOException {
-        System.out.println("Waiting for client to connect...");
+        System.out.println("Waiting for client to connect...\n");
         Server.serverSocket = new ServerSocket(9807);
         Server.clientSocket = Server.serverSocket.accept();
-        System.out.println("Connection between server and client established");
+        System.out.println("Connection between server and client established\n");
     }
 }
 
