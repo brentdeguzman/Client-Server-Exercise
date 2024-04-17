@@ -13,7 +13,7 @@ public class ServerPoemLine {
         int lineNumber = Integer.parseInt(Server.clientInput.readLine());
         int lineCounter = 0;
         while ((Server.poemLine = fileReader.readLine()) != null) {
-            lineCounter += 1;
+            lineCounter++;
             if (lineCounter == lineNumber) {
                 System.out.println("Poem line " + lineNumber + ": " + Server.poemLine);
                 break;
