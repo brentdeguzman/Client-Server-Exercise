@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ServerPoemLine {
-    public static int getPoemLine() throws IOException {
+    public static int retrieveLineNumber() throws IOException {
         String filepath = "C:\\Users\\brent\\IdeaProjects\\MiniProject\\Poem.txt";
         BufferedReader fileReader = new BufferedReader(new FileReader(filepath));
         Server.clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));

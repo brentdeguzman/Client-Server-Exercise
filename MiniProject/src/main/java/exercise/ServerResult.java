@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ServerResult {
-    public static void serverResult(int lineNumber) throws IOException {
+    public static void sendResult(int lineNumber) throws IOException {
         Server.serverOutput = new PrintWriter(Server.clientSocket.getOutputStream(), true);
         //allows server to send data back to the client
         if (lineNumber == 1 || lineNumber == 21 || lineNumber == 31) {

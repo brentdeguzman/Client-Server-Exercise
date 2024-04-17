@@ -9,7 +9,7 @@ public class Client {
         try {
             Socket socket = ClientConnect.connectToServer();
             ClientInput.userInputToServer(socket);
-            ClientResult.clientResult(socket);
+            ClientResult.displayResult(socket);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

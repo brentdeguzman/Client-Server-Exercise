@@ -12,9 +12,9 @@ public class Server {
 
     public static void main(String[] args){
         try {
-            ServerConnection.serverConnection();
-            int lineNumber = ServerPoemLine.getPoemLine();
-            ServerResult.serverResult(lineNumber);
+            ServerConnection.establishConnection();
+            int lineNumber = ServerPoemLine.retrieveLineNumber();
+            ServerResult.sendResult(lineNumber);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

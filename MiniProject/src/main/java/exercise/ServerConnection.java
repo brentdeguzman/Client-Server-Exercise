@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 
 public class ServerConnection {
 
-    public static void serverConnection() throws IOException {
+    public static void establishConnection() throws IOException {
         System.out.println("Waiting for client to connect...\n");
         Server.serverSocket = new ServerSocket(9807);
         Server.clientSocket = Server.serverSocket.accept();
