@@ -40,4 +40,12 @@ Establish a connection between Server and Client. Perform specific task of picki
 5. Run the Server first then the Client.
 6. On the terminal of the Client tab, you may pick a number.
 7. After picking a number, the Server will send the corresponding poem line to the Client.
-8. The result will be shown based on the poem If- by Rudyard Kipling. 
+8. The result will be shown based on the poem If- by Rudyard Kipling.
+
+### References
+----
+Youtube Tutorials
+1. Here's the [LINK](https://www.youtube.com/watch?v=ScUJx4aWRi0)
+2. Here's the [LINK](https://www.youtube.com/watch?v=bWKbdPAovFA&list=PLoW9ZoLJX39Xcdaa4Dn5WLREHblolbji4&index=1)
+Baeldung
+1. Here's the [LINK](https://www.baeldung.com/a-guide-to-java-sockets)
