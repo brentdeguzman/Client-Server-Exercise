@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 public class ServerPoemLine {
     public static int retrieveLineNumber() throws IOException {
-        String filepath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\MiniProject\\src\\main\\resources\\Poem.txt";
+        String filepath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\src\\main\\resources\\Poem.txt";
         BufferedReader fileReader = new BufferedReader(new FileReader(filepath));
         Server.clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
         int lineNumber;
