@@ -8,10 +8,12 @@ public class Client {
 
         try {
             Socket socket = ClientConnect.connectToServer();
-            ClientInput.userInputToServer(socket);
-            ClientResult.displayResult(socket);
+            while (true) {
+                ClientInput.userInputToServer(socket);
+                ClientResult.displayResult(socket);
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Connection ended: " + e.getMessage());
         }
 
     }

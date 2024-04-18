@@ -13,8 +13,12 @@ public class Server {
     public static void main(String[] args){
         try {
             ServerConnection.establishConnection();
-            int lineNumber = ServerPoemLine.retrieveLineNumber();
-            ServerResult.sendResult(lineNumber);
+            while (true) {
+                int lineNumber = ServerPoemLine.retrieveLineNumber();
+                if(lineNumber == -1)
+                    break;
+                ServerResult.sendResult(lineNumber);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

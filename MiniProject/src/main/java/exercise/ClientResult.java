@@ -10,6 +10,6 @@ public class ClientResult {
         BufferedReader serverInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         //allows client to receive data from the server, reads input
         System.out.println("\nFrom the poem: If— by Rudyard Kipling");
-        System.out.println(serverInput.readLine());
+        System.out.println(serverInput.readLine()+"\n");
     }
 }
