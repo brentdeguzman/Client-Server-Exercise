@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 
 public class ServerPoemLine {
     public static int retrieveLineNumber() throws IOException {
-        String filepath = "C:\\Users\\brent\\IdeaProjects\\MiniProject\\Poem.txt";
+        String filepath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\MiniProject\\src\\main\\resources\\Poem.txt";
         BufferedReader fileReader = new BufferedReader(new FileReader(filepath));
         Server.clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
         int lineNumber;
