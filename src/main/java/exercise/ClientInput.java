@@ -11,14 +11,12 @@ public class ClientInput {
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));//reads input from terminal
         PrintWriter clientOutput = new PrintWriter(socket.getOutputStream(), true);
         //allows client to send data to the server
-        System.out.println("Select line number between 1 and 35 or -1 to terminate: ");
+        System.out.println("Type a positive number or Type -1 to terminate: ");
         int lineNumber = Integer.parseInt(userInput.readLine());
         if (lineNumber == -1) {
             System.out.println("Connection will be terminated.");
             socket.close();
         }
-        else if (lineNumber > 35 || lineNumber == 0) //if input is greater than 35 or is equal to 0 throw exception
-            throw new IllegalArgumentException(lineNumber +" is invalid number.Please only select between 1 and 35");
         else clientOutput.println(lineNumber);
     }
 }

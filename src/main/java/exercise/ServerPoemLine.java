@@ -26,6 +26,9 @@ public class ServerPoemLine {
                 break;
             }
         }
+        if (lineCounter < lineNumber) {
+            System.out.println("Poem line does not exist.");
+        }
         fileReader.close();
         return lineNumber;
     }
