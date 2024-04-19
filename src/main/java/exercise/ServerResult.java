@@ -8,7 +8,11 @@ public class ServerResult {
         Server.serverOutput = new PrintWriter(Server.clientSocket.getOutputStream(), true);
         //allows server to send data back to the client
         if (Server.poemLine == null){
-            Server.serverOutput.println("Warning: The requested line number exceeds the total number of lines in the poem.");
+            String warningMessage = "The requested line number exceeds the total number of lines in the poem.";
+            Server.logger.warn(warningMessage);
+            Server.serverOutput.println(warningMessage);
+        } else if (lineNumber >= 11 && lineNumber <= 13){
+            Server.serverOutput.println(lineNumber + "th Line: " + Server.poemLine);
         } else switch (lineNumber % 10) {//remainder when lineNumber is divided by 10
             case 1:
                 Server.serverOutput.println(lineNumber + "st Line: " + Server.poemLine);
