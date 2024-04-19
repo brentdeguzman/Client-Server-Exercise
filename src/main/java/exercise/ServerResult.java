@@ -9,8 +9,7 @@ public class ServerResult {
         //allows server to send data back to the client
         if (Server.poemLine == null){
             Server.serverOutput.println("Warning: The requested line number exceeds the total number of lines in the poem.");
-        }
-        switch (lineNumber % 10) {//remainder when lineNumber is divided by 10
+        } else switch (lineNumber % 10) {//remainder when lineNumber is divided by 10
             case 1:
                 Server.serverOutput.println(lineNumber + "st Line: " + Server.poemLine);
                 break;
