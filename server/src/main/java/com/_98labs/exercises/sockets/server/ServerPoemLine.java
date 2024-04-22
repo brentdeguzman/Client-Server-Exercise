@@ -12,7 +12,7 @@ public class ServerPoemLine {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
 
     public static int retrieveLineNumber() throws IOException {
-        String filepath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\server\\src\\main\\java\\resources\\Poem.txt";
+        String filepath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\server\\src\\main\\resources\\Poem.txt";
         BufferedReader fileReader = new BufferedReader(new FileReader(filepath));
         Server.clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
         int lineNumber;
