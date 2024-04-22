@@ -1,4 +1,4 @@
-package exercise;
+package com._98labs.exercises.sockets.client;
 
 import java.io.IOException;
 import java.net.Socket;

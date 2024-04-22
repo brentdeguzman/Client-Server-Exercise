@@ -1,4 +1,4 @@
-package exercise;
+package com._98labs.exercises.sockets.server;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

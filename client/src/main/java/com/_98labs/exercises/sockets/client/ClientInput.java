@@ -1,21 +1,24 @@
-package exercise;
+package com._98labs.exercises.sockets.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ClientInput {
+    private static final Logger clientInputLogger = LogManager.getLogger(ClientInput.class);
     public static void userInputToServer(Socket socket) throws IOException {
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));//reads input from terminal
         PrintWriter clientOutput = new PrintWriter(socket.getOutputStream(), true);
         //allows client to send data to the server
 
-        System.out.println("Type a  number or Type -1 to terminate: ");
+        clientInputLogger.info("Type a  number or Type -1 to terminate: ");
         String input = userInput.readLine();
         if (input == "-1") {
-            System.out.println("Connection will be terminated.");
+            clientInputLogger.warn("Connection will be terminated.");
             socket.close();
         }
         String integerPattern = "-?\\d+"; // Matches integers (positive or negative)
@@ -31,7 +34,6 @@ public class ClientInput {
             clientOutput.println(input);
         } else {
             // Input is neither integer nor decimal, handle as string (you can decide how to handle strings)
-            System.out.println("Received input is a string. Converting to zero and sending.");
             clientOutput.println(0);
         }
     }

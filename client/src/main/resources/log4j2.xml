@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
+
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
         <!-- timestamp format+log level(importance)+logger name, upto 36 char+log message and newline-->
         </Console><!-- logs messages to the System console -->
-        <File name="FileAppender" fileName="src/main/java/logs/server.log" append="false">
+        <File name="FileAppender" fileName="client/logs/clientLogs.log" append="false">
             <!--set to false, the existing file will be overwritten each time the application starts-->
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
         </File><!--responsible for sending log messages to a certain output destination -->
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Root level="debug">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="FileAppender"/>
         </Root>
