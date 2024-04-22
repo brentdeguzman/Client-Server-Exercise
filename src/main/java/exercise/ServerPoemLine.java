@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Paths;
 
 public class ServerPoemLine {
     public static int retrieveLineNumber() throws IOException {
@@ -12,12 +11,14 @@ public class ServerPoemLine {
         BufferedReader fileReader = new BufferedReader(new FileReader(filepath));
         Server.clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
         int lineNumber;
+
         try {
             lineNumber = Integer.parseInt(Server.clientInput.readLine());
         } catch (NumberFormatException e) {
             Server.logger.info("The connection was terminated.");
             return -1;
         }
+
         int lineCounter = 0;
         while ((Server.poemLine = fileReader.readLine()) != null) {
             lineCounter++;
@@ -26,9 +27,11 @@ public class ServerPoemLine {
                 break;
             }
         }
+
         if (lineCounter < lineNumber) {
             Server.logger.warn("Poem line does not exist.");
         }
+
         fileReader.close();
         return lineNumber;
     }
