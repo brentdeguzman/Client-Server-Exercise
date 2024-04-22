@@ -1,11 +1,16 @@
 package exercise;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ServerPoemLine {
+    private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
+
     public static int retrieveLineNumber() throws IOException {
         String filepath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\src\\main\\resources\\Poem.txt";
         BufferedReader fileReader = new BufferedReader(new FileReader(filepath));
@@ -15,7 +20,7 @@ public class ServerPoemLine {
         try {
             lineNumber = Integer.parseInt(Server.clientInput.readLine());
         } catch (NumberFormatException e) {
-            Server.logger.info("The connection was terminated.");
+            poemLineLogger.info("The connection was terminated.");
             return -1;
         }
 
@@ -23,13 +28,13 @@ public class ServerPoemLine {
         while ((Server.poemLine = fileReader.readLine()) != null) {
             lineCounter++;
             if (lineCounter == lineNumber) {
-                Server.logger.info("Poem line " + lineNumber + ": " + Server.poemLine + "\n");
+                poemLineLogger.info("Poem line " + lineNumber + ": " + Server.poemLine + "\n");
                 break;
             }
         }
 
         if (lineCounter < lineNumber) {
-            Server.logger.warn("Poem line does not exist.");
+            poemLineLogger.warn("Poem line does not exist.");
         }
 
         fileReader.close();
