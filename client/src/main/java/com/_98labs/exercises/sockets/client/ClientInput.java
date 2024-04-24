@@ -30,7 +30,7 @@ public class ClientInput {
             clientOutput.println(response);
         }
     }
-    private static int validateUserInput(String input) {
+    public static int validateUserInput(String input) {
         if ("-1".equals(input)) {
             return -1; //termination
         } else if (input.matches(decimalPattern)) {
