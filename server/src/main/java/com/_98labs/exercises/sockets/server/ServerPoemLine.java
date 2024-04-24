@@ -10,34 +10,44 @@ import java.io.InputStreamReader;
 
 public class ServerPoemLine {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
+    private static BufferedReader clientInput;
+    private static int lineNumber;
+    private static String poemLine;
 
-    public static int retrieveLineNumber() throws IOException {
-        String filepath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\server\\src\\main\\resources\\Poem.txt";
-        BufferedReader fileReader = new BufferedReader(new FileReader(filepath));
-        Server.clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
-        int lineNumber;
-
-        try {
-            lineNumber = Integer.parseInt(Server.clientInput.readLine());
-        } catch (NumberFormatException e) {
-            poemLineLogger.info("The connection was terminated.");
-            return -1;
-        }
-
-        int lineCounter = 0;
-        while ((Server.poemLine = fileReader.readLine()) != null) {
-            lineCounter++;
-            if (lineCounter == lineNumber) {
-                poemLineLogger.info("Poem line " + lineNumber + ": " + Server.poemLine + "\n");
-                break;
-            }
-        }
-
-        if (lineCounter < lineNumber) {
-            poemLineLogger.warn("Poem line does not exist.");
-        }
-
-        fileReader.close();
+    public static int handleLineNumberFromClient() throws IOException {
+        clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
+        String input = clientInput.readLine();
+        lineNumber = validateInputFromClient(input);
         return lineNumber;
+    }
+
+    public static int validateInputFromClient(String input) {
+        try {
+            int lineNumber = Integer.parseInt(input);
+            if (lineNumber < 1) {
+                poemLineLogger.warn("Invalid line number");
+                return 0; // Invalid line number (less than 1)
+            }
+            return lineNumber;
+        } catch (NumberFormatException e) {
+            poemLineLogger.warn("Server terminated.");
+            return -1; // Invalid input (not an integer)
+        }
+    }
+
+    public static String readPoem() throws IOException {
+        String filePath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\server\\src\\main\\resources\\Poem.txt";
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+            int lineCounter = 0;
+            while((poemLine = fileReader.readLine()) != null){
+                lineCounter += 1;
+                if (lineNumber == lineCounter) {
+                    poemLineLogger.info(poemLine);
+                    return poemLine;
+                }
+            }
+            poemLineLogger.warn("Poem line does not exist.");
+            return poemLine;
+        }
     }
 }

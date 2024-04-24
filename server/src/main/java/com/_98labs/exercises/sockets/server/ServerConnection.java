@@ -7,11 +7,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 public class ServerConnection {
+    private static ServerSocket serverSocket;
     private static final Logger connectionLogger = LogManager.getLogger(ServerConnection.class);
     public static void establishConnection() throws IOException {
         connectionLogger.info("Waiting for client to connect...\n");
-        Server.serverSocket = new ServerSocket(9807);
-        Server.clientSocket = Server.serverSocket.accept();
+        serverSocket = new ServerSocket(9807);
+        Server.clientSocket = serverSocket.accept();
         connectionLogger.info("Connection between server and client established\n");
     }
 }

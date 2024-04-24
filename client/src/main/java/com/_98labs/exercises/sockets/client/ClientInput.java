@@ -21,18 +21,24 @@ public class ClientInput {
         clientInputLogger.info("Type a  number or Type -1 to terminate: ");
         String input = userInput.readLine();
         clientInputLogger.info("User input: "+ input);
-        if ("-1".equals(input)) {
+        int response = validateUserInput(input);
+
+        if (response == -1) {
             clientInputLogger.warn("Connection will be terminated.");
             socket.close();
-        }
-
-        //if input matches the pattern
-        if (input.matches(decimalPattern)) {
-            clientOutput.println(0);
-        } else if (input.matches(integerPattern)) {
-            clientOutput.println(input);
         } else {
-            clientOutput.println(0);
+            clientOutput.println(response);
+        }
+    }
+    private static int validateUserInput(String input) {
+        if ("-1".equals(input)) {
+            return -1; //termination
+        } else if (input.matches(decimalPattern)) {
+            return 0; //decimal input not valid; return default value (0)
+        } else if (input.matches(integerPattern)) {
+            return Integer.parseInt(input); //valid input
+        } else {
+            return 0; //invalid input; return default value (0)
         }
     }
 }
