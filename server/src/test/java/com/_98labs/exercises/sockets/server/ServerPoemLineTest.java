@@ -43,31 +43,67 @@ class ServerValidationTest {
 }
 class ServerReadPoemTest {
 
+    private static final String filePath = System.getProperty("user.dir") + "\\src\\test\\resources\\Haiku.txt";
+    private ServerPoemLine poemReader;
+
+    @BeforeEach
+    void setUp() {
+        // Initialize the PoemReader instance
+        poemReader = new ServerPoemLine();
+        poemReader.setFilePath(filePath);
+    }
     @Test
-    public void testReadPoemLine2Exists() throws IOException {
-        String expectedLine = "Are losing theirs and blaming it on you,";
-        assertEquals(expectedLine.trim(), readPoem(2).trim());
+    void testReadPoemValidLine1() throws IOException {
+        String expectedLine = "In pale moonlight";
+        String result = poemReader.readPoem(1);
+        assertEquals(expectedLine.trim(), result);
+    }
+    @Test
+    void testReadPoemValidLine2() throws IOException {
+        String expectedLine = "the wisteria’s scent";
+        String result = poemReader.readPoem(2);
+        assertEquals(expectedLine.trim(), result);
+    }
+    @Test
+    void testReadPoemValidLine3() throws IOException {
+        String expectedLine = "comes from far away.";
+        String result = poemReader.readPoem(3);
+        assertEquals(expectedLine.trim(), result);
     }
 
     @Test
-    public void testReadPoemLine34Exists() throws IOException {
-        String expectedLine = "Yours is the Earth and everything that’s in it,";
-        assertEquals(expectedLine.trim(), readPoem(34).trim());
+    void testReadPoemInvalidLine() throws IOException {
+        // Test that requesting a non-existent line returns null
+        String result = poemReader.readPoem(100);
+        assertNull(result);
     }
-    @Test
-    public void testReadPoemDoesNotExist() throws IOException {
-        String expectedLine = null;
-        String actualLine = readPoem(37);
-        assertEquals(expectedLine, actualLine);
-    }
-}
-//    private static final String testFilePath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\server\\src\\test\\resources\\Haiku.txt";
-//        @BeforeEach
-//    void testReadPoem() throws Exception {
-//        BufferedReader readFile = new BufferedReader(new FileReader(testFilePath));
-////        readPoem();
-//        String test;
-//        while((test  = readFile.readLine()) != null){
-//            System.out.println(test);
-//        }
+
+//    @Test
+//    void testReadPoemEmptyFile() throws IOException {
+//        // Test with an empty file
+//        poemReader.setFilePath(filePath);
+//
+//        int lineNumber = 1;
+//        String result = poemReader.readPoem(lineNumber);
+//        assertNull(result);
 //    }
+
+//    @Test
+//    public void testReadPoemLine2Exists() throws IOException {
+//        String expectedLine = "Are losing theirs and blaming it on you,";
+//        assertEquals(expectedLine.trim(), readPoem(2).trim());
+//    }
+//
+//    @Test
+//    public void testReadPoemLine34Exists() throws IOException {
+//        String expectedLine = "Yours is the Earth and everything that’s in it,";
+//        assertEquals(expectedLine.trim(), readPoem(34).trim());
+//    }
+//    @Test
+//    public void testReadPoemDoesNotExist() throws IOException {
+//        String expectedLine = null;
+//        String actualLine = readPoem(37);
+//        assertEquals(expectedLine, actualLine);
+//    }
+}
+

@@ -25,24 +25,30 @@ public class ServerResult {
             resultLogger.warn(nullPoem);
             serverOutput.println(nullPoem);
         }
+
+        resultLogger.info(lineNumber + getSuffix(lineNumber) + " " + poemLine);
+        serverOutput.println(lineNumber + getSuffix(lineNumber) + " " + poemLine);
+    }
+    public static String getSuffix(int lineNumber) {
         String suffix;
-        if (lineNumber >= 11 && lineNumber <= 13){
+        if (lineNumber >= 11 && lineNumber <= 13) {
             suffix = "th";
-        } else switch (lineNumber % 10) {//remainder when lineNumber is divided by 10
-            case 1:
-                suffix = "st";
-                break;
-            case 2:
-                suffix = "nd";
-                break;
-            case 3:
-                suffix = "rd";
-                break;
-            default:
-                suffix = "th";
-                break;
+        } else {
+            switch (lineNumber % 10) {
+                case 1:
+                    suffix = "st";
+                    break;
+                case 2:
+                    suffix = "nd";
+                    break;
+                case 3:
+                    suffix = "rd";
+                    break;
+                default:
+                    suffix = "th";
+                    break;
+            }
         }
-        resultLogger.info(lineNumber + suffix + " " + poemLine);
-        serverOutput.println(lineNumber + suffix + " " + poemLine);
+        return suffix;
     }
 }

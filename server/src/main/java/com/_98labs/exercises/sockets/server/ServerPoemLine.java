@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 public class ServerPoemLine {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
-    private static String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\Poem.txt";
+    private static String filePath = System.getProperty("user.dir") + "\\server\\src\\main\\resources\\Poem.txt";
     private static BufferedReader clientInput;
     private static int lineNumber;
     private static String poemLine;
@@ -31,9 +31,16 @@ public class ServerPoemLine {
             }
             return lineNumber;
         } catch (NumberFormatException e) {
-            poemLineLogger.warn("Server terminated.");
+            poemLineLogger.warn("The input is invalid.");
             return -1; // Invalid input (not an integer)
         }
+    }
+
+    //    private static BufferedReader createBufferedReader() throws IOException {
+//        return new BufferedReader(new FileReader(filePath));
+//    }
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public static String readPoem(int lineNumber) throws IOException {
