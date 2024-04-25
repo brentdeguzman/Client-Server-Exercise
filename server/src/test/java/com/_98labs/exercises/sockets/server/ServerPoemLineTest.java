@@ -53,6 +53,7 @@ class ServerValidationTest {
 class ServerReadPoemTest {
 
     private static final String filePath = System.getProperty("user.dir") + "\\src\\test\\resources\\Haiku.txt";
+    private static final String emptyFile = System.getProperty("user.dir") + "\\src\\test\\resources\\Empty.txt";
     private ServerPoemLine poemReader;
 
     @BeforeEach
@@ -85,6 +86,13 @@ class ServerReadPoemTest {
         // Test that requesting a non-existent line returns null
         String result = poemReader.readPoem(100);
         assertNull(result);
+    }
+
+    @Test
+    void testReadPoemEmptyFile() throws IOException {
+        poemReader.setFilePath(emptyFile);
+        String result = poemReader.readPoem(1);
+        assertNull(result);// Expect null since the file is empty
     }
 
 //    @Test
