@@ -44,8 +44,8 @@ public class ServerPoemLine {
     }
 
     public static String readPoem(int lineNumber) throws IOException {
+        int lineCounter = 0;
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
-            int lineCounter = 0;
             while ((poemLine = fileReader.readLine()) != null) {
                 lineCounter += 1;
                 if (lineNumber == lineCounter) {

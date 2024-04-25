@@ -12,22 +12,9 @@ public class ServerResult {
     private static  String poemLine;
     public static void sendResult(int lineNumber) throws IOException {
         serverOutput = new PrintWriter(Server.clientSocket.getOutputStream(), true);
-        poemLine = ServerPoemLine.readPoem(lineNumber);
-
-        //allows server to send data back to the client
-        if (lineNumber == 0){
-            String invalidInput = "The input is invalid. Poem line starts at 1.";
-            resultLogger.warn(invalidInput);
-            serverOutput.println(invalidInput);
-        }
-        if (ServerPoemLine.readPoem(lineNumber) == null){
-            String nullPoem = "The requested line number exceeds the total number of lines in the poem.";
-            resultLogger.warn(nullPoem);
-            serverOutput.println(nullPoem);
-        }
-
-        resultLogger.info(lineNumber + getSuffix(lineNumber) + " " + poemLine);
-        serverOutput.println(lineNumber + getSuffix(lineNumber) + " " + poemLine);
+        poemLine = ServerPoemLine.readPoem(lineNumber); //allows server to send data back to the client
+        resultLogger.info(lineNumber + getSuffix(lineNumber) + "Line " + poemLine);
+        serverOutput.println(lineNumber + getSuffix(lineNumber) + "Line " + poemLine);
     }
     public static String getSuffix(int lineNumber) {
         String suffix;

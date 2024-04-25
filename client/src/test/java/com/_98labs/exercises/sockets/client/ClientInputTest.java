@@ -23,11 +23,14 @@ public class ClientInputTest {
         int result = validateUserInput("10");
         assertEquals(10, result);
     }
-
+    @Test
+    void testValidIntegerInputLarge() {
+        int result = validateUserInput("987654321");
+        assertEquals(987654321, result);
+    }
     @Test
     void testInvalidInput() {
         int result = validateUserInput("abc");
         assertEquals(0, result);
     }
-
 }

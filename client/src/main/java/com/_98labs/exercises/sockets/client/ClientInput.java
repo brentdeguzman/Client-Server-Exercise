@@ -20,7 +20,6 @@ public class ClientInput {
 
         clientInputLogger.info("Type a  number or Type -1 to terminate: ");
         String input = userInput.readLine();
-        clientInputLogger.info("User input: "+ input);
         int response = validateUserInput(input);
 
         if (response == -1) {
@@ -32,12 +31,15 @@ public class ClientInput {
     }
     public static int validateUserInput(String input) {
         if ("-1".equals(input)) {
+            clientInputLogger.warn("Input is code for termination: " + input);
             return -1; //termination
         } else if (input.matches(decimalPattern)) {
+            clientInputLogger.warn("Input is invalid: " + input);
             return 0; //decimal input not valid; return default value (0)
         } else if (input.matches(integerPattern)) {
             return Integer.parseInt(input); //valid input
         } else {
+            clientInputLogger.warn("Input is invalid: " + input);
             return 0; //invalid input; return default value (0)
         }
     }

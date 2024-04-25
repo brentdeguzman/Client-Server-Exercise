@@ -18,6 +18,13 @@ class ServerValidationTest {
         int result = validateInputFromClient("5");
         assertEquals(5, result);
     }
+
+    @Test
+    void testValidInputButExceeds() {
+        int result = validateInputFromClient("987654321");
+        assertEquals(987654321, result);
+    }
+
     @Test
     void testInvalidLineNumberZero() {//test the if statement: is less than 1
         int result = validateInputFromClient("0");
@@ -30,11 +37,13 @@ class ServerValidationTest {
         assertEquals(0, result);
     }
 
+
     @Test
     void testInvalidStringInput() {//test the catch: NumberFormatException
         int result = validateInputFromClient("xyz");
         assertEquals(-1, result);
     }
+
     @Test
     void testInvalidDecimalInput() {
         int result = validateInputFromClient("3.1416");
