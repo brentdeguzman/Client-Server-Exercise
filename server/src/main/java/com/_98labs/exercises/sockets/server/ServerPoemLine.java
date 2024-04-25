@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 
 public class ServerPoemLine {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
+    private static String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\Poem.txt";
     private static BufferedReader clientInput;
     private static int lineNumber;
     private static String poemLine;
@@ -35,11 +36,10 @@ public class ServerPoemLine {
         }
     }
 
-    public static String readPoem() throws IOException {
-        String filePath = "C:\\Users\\brent\\OneDrive\\Documents\\GitHub\\Client-Server-Exercise\\server\\src\\main\\resources\\Poem.txt";
+    public static String readPoem(int lineNumber) throws IOException {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
             int lineCounter = 0;
-            while((poemLine = fileReader.readLine()) != null){
+            while ((poemLine = fileReader.readLine()) != null) {
                 lineCounter += 1;
                 if (lineNumber == lineCounter) {
                     poemLineLogger.info(poemLine);
