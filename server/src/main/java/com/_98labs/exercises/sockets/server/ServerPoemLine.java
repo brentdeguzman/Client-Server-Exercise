@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 public class ServerPoemLine {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
     private static String filePath = ServerPoemLine.class.getClassLoader().getResource("Poem.txt").getPath();
+    //getPath() -> convert URL object to string
+    //getResources() -> returns a URL object representing the location of the resource
+    //getClassLoader() -> loads classes from the target folder
     private static BufferedReader clientInput;
     private static int lineNumber;
     private static String poemLine;
