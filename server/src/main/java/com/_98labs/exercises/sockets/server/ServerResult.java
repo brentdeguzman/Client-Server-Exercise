@@ -11,8 +11,8 @@ public class ServerResult {
     private static PrintWriter serverOutput;
     private static  String poemLine;
     public static void sendResult(int lineNumber) throws IOException {
-        serverOutput = new PrintWriter(Server.clientSocket.getOutputStream(), true);
-        poemLine = ServerPoemLine.readPoem(lineNumber); //allows server to send data back to the client
+        serverOutput = new PrintWriter(Server.clientSocket.getOutputStream(), true);//allows server to send data back to the client
+        poemLine = ServerPoemLine.readPoem(lineNumber);
         String result = lineNumber + getSuffix(lineNumber) + " Line: " + poemLine;
         resultLogger.info(result);
         serverOutput.println(result);
@@ -22,7 +22,7 @@ public class ServerResult {
         if (lineNumber >= 11 && lineNumber <= 13) {
             suffix = "th";
         } else {
-            suffix = switch (lineNumber % 10) {
+            suffix = switch (lineNumber % 10) {//remainder of lineNumber/10
                 case 1 -> "st";
                 case 2 -> "nd";
                 case 3 -> "rd";

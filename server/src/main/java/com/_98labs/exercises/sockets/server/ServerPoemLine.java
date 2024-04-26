@@ -27,18 +27,15 @@ public class ServerPoemLine {
             int lineNumber = Integer.parseInt(input);
             if (lineNumber < 1) {
                 poemLineLogger.warn("Invalid line number");
-                return 0; // Invalid line number (less than 1)
+                return 0; //Invalid line number (less than 1)
             }
             return lineNumber;
         } catch (NumberFormatException e) {
             poemLineLogger.warn("The input is invalid.");
-            return -1; // Invalid input (not an integer)
+            return -1; //Invalid input (not an integer)
         }
     }
 
-    //    private static BufferedReader createBufferedReader() throws IOException {
-//        return new BufferedReader(new FileReader(filePath));
-//    }
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }

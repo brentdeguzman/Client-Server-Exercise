@@ -89,6 +89,13 @@ class ServerReadPoemTest {
     }
 
     @Test
+    void testReadPoemInvalidLineNegative() throws IOException {
+        // Test that requesting a non-existent line returns null
+        String result = poemReader.readPoem(-2);
+        assertNull(result);
+    }
+
+    @Test
     void testReadPoemEmptyFile() throws IOException {
         poemReader.setFilePath(emptyFile);
         String result = poemReader.readPoem(1);
