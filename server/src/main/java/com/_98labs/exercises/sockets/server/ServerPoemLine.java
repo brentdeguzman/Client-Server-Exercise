@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 public class ServerPoemLine {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
-    private static String filePath = System.getProperty("user.dir") + "\\server\\src\\main\\resources\\Poem.txt";
+    private static String filePath = ServerPoemLine.class.getClassLoader().getResource("Poem.txt").getPath();
     private static BufferedReader clientInput;
     private static int lineNumber;
     private static String poemLine;

@@ -52,8 +52,10 @@ class ServerValidationTest {
 }
 class ServerReadPoemTest {
 
-    private static final String filePath = System.getProperty("user.dir") + "\\src\\test\\resources\\Haiku.txt";
-    private static final String emptyFile = System.getProperty("user.dir") + "\\src\\test\\resources\\Empty.txt";
+//    private static final String filePath = System.getProperty("user.dir") + "\\src\\test\\resources\\Haiku.txt";
+    private static final String filePath = ServerPoemLine.class.getClassLoader().getResource("Haiku.txt").getPath();
+//    private static final String emptyFile = System.getProperty("user.dir") + "\\src\\test\\resources\\Empty.txt";
+    private static final String emptyFile = ServerPoemLine.class.getClassLoader().getResource("Empty.txt").getPath();
     private ServerPoemLine poemReader;
 
     @BeforeEach
