@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ServerConnectionTest {
 
     @Test
-    public void testEstablishConnection() throws IOException {
+    public void testEstablishConnection() throws Exception {
         //call the method to be tested
         ServerConnection.establishConnection();
 //        Server.clientSocket = null;

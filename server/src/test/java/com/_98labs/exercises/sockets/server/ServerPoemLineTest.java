@@ -4,49 +4,65 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 import static com._98labs.exercises.sockets.server.ServerPoemLine.readPoem;
 import static com._98labs.exercises.sockets.server.ServerPoemLine.validateInputFromClient;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ServerValidationTest {
-
+class ServerValidationTest{
+    private Properties properties;
+    @BeforeEach
+    void setUp() throws IOException {
+        // Load properties file
+        properties = new Properties();
+        String propertiesFilePath = ServerValidationTest.class.getClassLoader().getResource("serverConfig.properties").getPath();
+        try (FileInputStream readConfig = new FileInputStream(propertiesFilePath)) {
+            properties.load(readConfig);
+        }
+    }
     @Test
-    void testValidInput() {
-        int result = validateInputFromClient("5");
+    void testValidInput()  throws Exception{
+//        int result = validateInputFromClient("5");
+        int result = validateInputFromClient(properties.getProperty("validInput"));
         assertEquals(5, result);
     }
 
     @Test
-    void testValidInputButExceeds() {
-        int result = validateInputFromClient("987654321");
+    void testValidInputButExceeds() throws Exception{
+//        int result = validateInputFromClient("987654321");
+        int result = validateInputFromClient(properties.getProperty("validInputExceeds"));
         assertEquals(987654321, result);
     }
 
     @Test
-    void testInvalidLineNumberZero() {//test the if statement: is less than 1
-        int result = validateInputFromClient("0");
+    void testInvalidLineNumberZero() throws Exception{//test the if statement: is less than 1
+//        int result = validateInputFromClient("0");
+        int result = validateInputFromClient(properties.getProperty("invalidInputZero"));
         assertEquals(0, result);
     }
 
     @Test
-    void testInvalidLineNumber() {//test the if statement: is less than 1
-        int result = validateInputFromClient("-2");
+    void testInvalidLineNumber() throws Exception{//test the if statement: is less than 1
+//        int result = validateInputFromClient("-2");
+        int result = validateInputFromClient(properties.getProperty("invalidInputNegative"));
         assertEquals(0, result);
     }
 
-
     @Test
-    void testInvalidStringInput() {//test the catch: NumberFormatException
-        int result = validateInputFromClient("xyz");
+    void testInvalidStringInput() throws Exception{//test the catch: NumberFormatException
+//        int result = validateInputFromClient("xyz");
+        int result = validateInputFromClient(properties.getProperty("invalidStringInput"));
         assertEquals(-1, result);
     }
 
     @Test
-    void testInvalidDecimalInput() {
-        int result = validateInputFromClient("3.1416");
+    void testInvalidDecimalInput() throws Exception{
+//        int result = validateInputFromClient("3.1416");
+        int result = validateInputFromClient(properties.getProperty("invalidDecimalInput"));
         assertEquals(-1, result);
     }
 }

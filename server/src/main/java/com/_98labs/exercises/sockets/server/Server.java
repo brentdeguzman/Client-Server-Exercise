@@ -10,7 +10,7 @@ public class Server {
     private static final Logger serverLogger = LogManager.getLogger(Server.class);
     public static Socket clientSocket;
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
         try {
             ServerConnection.establishConnection();
             while (true) {

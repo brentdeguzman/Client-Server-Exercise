@@ -13,6 +13,7 @@ public class ClientInput {
     private static final String integerPattern = "-?\\d+"; // Matches integers (positive or negative)
     //-? = minus sign on integer is optional,\\d = shorthand for a digit (0-9),+ = at least one digit
     private static final String decimalPattern = "-?\\d+\\.\\d+"; // Matches decimals (positive or negative)
+    private static int defaultValue;//static, it will be initialized to zero
     public static void userInputToServer(Socket socket) throws IOException {
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));//reads input from terminal
         PrintWriter clientOutput = new PrintWriter(socket.getOutputStream(), true);
@@ -35,12 +36,12 @@ public class ClientInput {
             return -1; //termination
         } else if (input.matches(decimalPattern)) {
             clientInputLogger.warn("Input is invalid: " + input);
-            return 0; //decimal input not valid; return default value (0)
+            return defaultValue; //decimal input not valid; return default value (0)
         } else if (input.matches(integerPattern)) {
             return Integer.parseInt(input); //valid input
         } else {
             clientInputLogger.warn("Input is invalid: " + input);
-            return 0; //invalid input; return default value (0)
+            return defaultValue; //invalid input; return default value (0)
         }
     }
 }
