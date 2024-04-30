@@ -13,12 +13,10 @@ public class LoadProperties {
     }
     public static String portProperty() throws Exception{
         loadProperties();
-        String port = properties.getProperty("port");
-        return port;
+        return properties.getProperty("port");
     }
     public static String terminateProperty() throws Exception{
         loadProperties();
-        String terminateValue = properties.getProperty("terminateValue");
-        return terminateValue;
+        return properties.getProperty("terminateValue");
     }
 }

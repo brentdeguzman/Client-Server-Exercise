@@ -5,7 +5,11 @@ import java.util.Properties;
 
 public class LoadProperties {
     private static Properties properties;
+    private static boolean propertiesLoaded = false;
     private static void loadProperties() throws Exception {
+        if (propertiesLoaded) {
+            return; //avoid loading properties multiple times
+        }
         String filePath = LoadProperties.class.getClassLoader().getResource("clientConfig.properties").getPath();
         FileInputStream readFile = new FileInputStream(filePath);
         properties = new Properties();
@@ -13,27 +17,22 @@ public class LoadProperties {
     }
     public static String hostProperty() throws Exception{
         loadProperties();
-        String localhost = properties.getProperty("localhost");
-        return localhost;
+        return properties.getProperty("localhost");
     }
     public static String portProperty() throws Exception{
         loadProperties();
-        String port = properties.getProperty("port");
-        return port;
+        return properties.getProperty("port");
     }
     public static String terminateProperty() throws Exception{
         loadProperties();
-        String terminateValue = properties.getProperty("terminateValue");
-        return terminateValue;
+        return properties.getProperty("terminateValue");
     }
     public static String decimalProperty() throws Exception{
         loadProperties();
-        String decimalPattern = properties.getProperty("decimalPattern");
-        return decimalPattern;
+        return properties.getProperty("decimalPattern");
     }
     public static String integerProperty() throws Exception{
         loadProperties();
-        String integerPattern = properties.getProperty("integerPattern");
-        return integerPattern;
+        return properties.getProperty("integerPattern");
     }
 }
