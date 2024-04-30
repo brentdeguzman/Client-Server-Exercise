@@ -10,11 +10,12 @@ import org.apache.logging.log4j.Logger;
 
 public class ClientInput {
     private static final Logger clientInputLogger = LogManager.getLogger(ClientInput.class);
-    private static final String integerPattern = "-?\\d+"; // Matches integers (positive or negative)
+    private static String integerPattern; // Matches integers (positive or negative)  = "-?\\d+"
     //-? = minus sign on integer is optional,\\d = shorthand for a digit (0-9),+ = at least one digit
-    private static final String decimalPattern = "-?\\d+\\.\\d+"; // Matches decimals (positive or negative)
+    private static String decimalPattern; // Matches decimals (positive or negative)  = "-?\\d+\\.\\d+"
     private static int defaultValue;//static, it will be initialized to zero
-    public static void userInputToServer(Socket socket) throws IOException {
+    private static int terminateValue;
+    public static void userInputToServer(Socket socket) throws Exception {
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));//reads input from terminal
         PrintWriter clientOutput = new PrintWriter(socket.getOutputStream(), true);
         //allows client to send data to the server
@@ -23,17 +24,20 @@ public class ClientInput {
         String input = userInput.readLine();
         int response = validateUserInput(input);
 
-        if (response == -1) {
+        if (response == terminateValue) {
             clientInputLogger.warn("Connection will be terminated.");
             socket.close();
         } else {
             clientOutput.println(response);
         }
     }
-    public static int validateUserInput(String input) {
+    public static int validateUserInput(String input) throws Exception{
+        terminateValue = Integer.parseInt(LoadProperties.terminateProperty());
+        decimalPattern = LoadProperties.decimalProperty();
+        integerPattern = LoadProperties.integerProperty();
         if ("-1".equals(input)) {
             clientInputLogger.warn("Input is code for termination: " + input);
-            return -1; //termination
+            return terminateValue; //termination
         } else if (input.matches(decimalPattern)) {
             clientInputLogger.warn("Input is invalid: " + input);
             return defaultValue; //decimal input not valid; return default value (0)

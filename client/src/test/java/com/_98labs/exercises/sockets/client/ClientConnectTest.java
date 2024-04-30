@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class ClientConnectTest {
 
     @Test
-    void testConnectToServer() throws IOException {
+    void testConnectToServer() throws Exception {
         //call the method to be tested
         Socket socket = ClientConnect.connectToServer();
 //        Socket socket = null; //test to fail
