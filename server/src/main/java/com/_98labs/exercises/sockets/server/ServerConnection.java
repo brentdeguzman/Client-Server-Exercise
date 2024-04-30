@@ -11,17 +11,11 @@ public class ServerConnection {
     private static ServerSocket serverSocket;
     private static final Logger connectionLogger = LogManager.getLogger(ServerConnection.class);
     private static int port;
-    private static int loadPort() throws Exception {
-        String filePath = ServerConnection.class.getClassLoader().getResource("serverConfig.properties").getPath();
-        FileInputStream readFile = new FileInputStream(filePath);
-        Properties prop = new Properties();
-        prop.load(readFile);
-        port = Integer.parseInt(prop.getProperty("port"));
-        return port;
-    }
+
     public static void establishConnection() throws Exception {
+        port = Integer.parseInt(LoadProperties.portProperty());
         connectionLogger.info("Waiting for client to connect...\n");
-        serverSocket = new ServerSocket(loadPort());
+        serverSocket = new ServerSocket(port);
         Server.clientSocket = serverSocket.accept();
         connectionLogger.info("Connection between server and client established\n");
     }

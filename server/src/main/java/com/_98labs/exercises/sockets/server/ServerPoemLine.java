@@ -33,8 +33,9 @@ public class ServerPoemLine {
             }
             return lineNumber;
         } catch (NumberFormatException e) {
+            int terminateValue = Integer.parseInt(LoadProperties.terminateProperty());
             poemLineLogger.warn("The input is invalid.");
-            return loadTerminate(); //Invalid input (not an integer)
+            return terminateValue; //Invalid input (not an integer)
         }
     }
 
@@ -55,13 +56,5 @@ public class ServerPoemLine {
             poemLineLogger.warn("Poem line does not exist.");
             return poemLine;
         }
-    }
-    private static int loadTerminate() throws Exception {
-        String filePath = ServerConnection.class.getClassLoader().getResource("serverConfig.properties").getPath();
-        FileInputStream readFile = new FileInputStream(filePath);
-        Properties prop = new Properties();
-        prop.load(readFile);
-        int terminateValue = Integer.parseInt(prop.getProperty("terminateValue"));
-        return terminateValue;
     }
 }
