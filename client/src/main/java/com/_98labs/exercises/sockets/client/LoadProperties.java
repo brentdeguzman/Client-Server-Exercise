@@ -1,12 +1,13 @@
 package com._98labs.exercises.sockets.client;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class LoadProperties {
     private static Properties properties;
     private static boolean propertiesLoaded = false;
-    private static void loadProperties() throws Exception {
+    private static void loadProperties() throws IOException {
         if (propertiesLoaded) {
             return; //avoid loading properties multiple times
         }
@@ -15,24 +16,28 @@ public class LoadProperties {
         properties = new Properties();
         properties.load(readFile);
     }
-    public static String hostProperty() throws Exception{
+    private static String getProperty(String key) throws IOException {
         loadProperties();
-        return properties.getProperty("localhost");
+        String property = properties.getProperty(key);
+        if (property == null) {
+            throw new IOException("Property '" + key + "' not found");
+        }
+        return property;
     }
     public static String portProperty() throws Exception{
-        loadProperties();
-        return properties.getProperty("port");
+        return getProperty("port");
     }
+    public static String hostProperty() throws Exception{
+        return getProperty("localhost");
+    }
+
     public static String terminateProperty() throws Exception{
-        loadProperties();
-        return properties.getProperty("terminateValue");
+        return getProperty("terminateValue");
     }
     public static String decimalProperty() throws Exception{
-        loadProperties();
-        return properties.getProperty("decimalPattern");
+        return getProperty("decimalPattern");
     }
     public static String integerProperty() throws Exception{
-        loadProperties();
-        return properties.getProperty("integerPattern");
+        return getProperty("integerPattern");
     }
 }
