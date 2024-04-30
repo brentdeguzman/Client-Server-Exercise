@@ -21,29 +21,29 @@ public class ClientInputTest {
         }
     }
     @Test
-    void testTerminationInput() throws Exception{
+    void testTerminationInput() throws IOException{
         int result = validateUserInput(properties.getProperty("terminateValue"));
         assertEquals(-1, result);
     }
 
     @Test
-    void testDecimalInput() throws Exception{
+    void testDecimalInput() throws IOException{
         int result = validateUserInput(properties.getProperty("invalidDecimalInput"));
         assertEquals(0, result);
     }
 
     @Test
-    void testValidInput() throws Exception{
+    void testValidInput() throws IOException{
         int result = validateUserInput(properties.getProperty("validInput"));
         assertEquals(5, result);
     }
     @Test
-    void testValidIntegerInputLarge() throws Exception{
+    void testValidIntegerInputLarge() throws IOException{
         int result = validateUserInput(properties.getProperty("validInputExceeds"));
         assertEquals(987654321, result);
     }
     @Test
-    void testInvalidStringInput() throws Exception{
+    void testInvalidStringInput() throws IOException{
         int result = validateUserInput(properties.getProperty("invalidStringInput"));
         assertEquals(0, result);
     }

@@ -20,10 +20,10 @@ public class LoadProperties {
         }
         return property;
     }
-    public static String portProperty() throws Exception{
+    public static String portProperty() throws IOException{
         return getProperty("port");
     }
-    public static String terminateProperty() throws Exception{
+    public static String terminateProperty() throws IOException{
         return getProperty("terminateValue");
     }
 }

@@ -5,14 +5,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.ServerSocket;
-import java.util.Properties;
 
 public class ServerConnection {
     private static ServerSocket serverSocket;
     private static final Logger connectionLogger = LogManager.getLogger(ServerConnection.class);
     private static int port;
 
-    public static void establishConnection() throws Exception {
+    public static void establishConnection() throws IOException {
         port = Integer.parseInt(LoadProperties.portProperty());
         connectionLogger.info("Waiting for client to connect...\n");
         serverSocket = new ServerSocket(port);

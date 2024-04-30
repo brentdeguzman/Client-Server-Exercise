@@ -24,20 +24,20 @@ public class LoadProperties {
         }
         return property;
     }
-    public static String portProperty() throws Exception{
+    public static String portProperty() throws IOException{
         return getProperty("port");
     }
-    public static String hostProperty() throws Exception{
+    public static String hostProperty() throws IOException{
         return getProperty("localhost");
     }
 
-    public static String terminateProperty() throws Exception{
+    public static String terminateProperty() throws IOException{
         return getProperty("terminateValue");
     }
-    public static String decimalProperty() throws Exception{
+    public static String decimalProperty() throws IOException{
         return getProperty("decimalPattern");
     }
-    public static String integerProperty() throws Exception{
+    public static String integerProperty() throws IOException{
         return getProperty("integerPattern");
     }
 }

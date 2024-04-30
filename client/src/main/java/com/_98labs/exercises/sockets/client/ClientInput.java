@@ -10,12 +10,11 @@ import org.apache.logging.log4j.Logger;
 
 public class ClientInput {
     private static final Logger clientInputLogger = LogManager.getLogger(ClientInput.class);
-    private static String integerPattern; // Matches integers (positive or negative)  = "-?\\d+"
-    //-? = minus sign on integer is optional,\\d = shorthand for a digit (0-9),+ = at least one digit
-    private static String decimalPattern; // Matches decimals (positive or negative)  = "-?\\d+\\.\\d+"
+    private static String integerPattern; // Matches integers (positive or negative)
+    private static String decimalPattern; // Matches decimals (positive or negative)
     private static int defaultValue;//static, it will be initialized to zero
     private static int terminateValue;
-    public static void userInputToServer(Socket socket) throws Exception {
+    public static void userInputToServer(Socket socket) throws IOException {
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));//reads input from terminal
         PrintWriter clientOutput = new PrintWriter(socket.getOutputStream(), true);
         //allows client to send data to the server
@@ -31,7 +30,7 @@ public class ClientInput {
             clientOutput.println(response);
         }
     }
-    public static int validateUserInput(String input) throws Exception{
+    public static int validateUserInput(String input) throws IOException{
         terminateValue = Integer.parseInt(LoadProperties.terminateProperty());
         decimalPattern = LoadProperties.decimalProperty();
         integerPattern = LoadProperties.integerProperty();

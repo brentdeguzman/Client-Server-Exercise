@@ -16,8 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ServerValidationTest{
     private Properties properties;
     @BeforeEach
-    void setUp() throws IOException {
-        // Load properties file
+    void setUp() throws IOException {// Load properties file
         properties = new Properties();
         String propertiesFilePath = ServerValidationTest.class.getClassLoader().getResource("serverConfig.properties").getPath();
         try (FileInputStream readConfig = new FileInputStream(propertiesFilePath)) {
@@ -25,58 +24,48 @@ class ServerValidationTest{
         }
     }
     @Test
-    void testValidInput()  throws Exception{
-//        int result = validateInputFromClient("5");
+    void testValidInput()  throws IOException{
         int result = validateInputFromClient(properties.getProperty("validInput"));
         assertEquals(5, result);
     }
 
     @Test
-    void testValidInputButExceeds() throws Exception{
-//        int result = validateInputFromClient("987654321");
+    void testValidInputButExceeds() throws IOException{
         int result = validateInputFromClient(properties.getProperty("validInputExceeds"));
         assertEquals(987654321, result);
     }
 
     @Test
-    void testInvalidLineNumberZero() throws Exception{//test the if statement: is less than 1
-//        int result = validateInputFromClient("0");
+    void testInvalidLineNumberZero() throws IOException{//test the if statement: is less than 1
         int result = validateInputFromClient(properties.getProperty("invalidInputZero"));
         assertEquals(0, result);
     }
 
     @Test
-    void testInvalidLineNumber() throws Exception{//test the if statement: is less than 1
-//        int result = validateInputFromClient("-2");
+    void testInvalidLineNumber() throws IOException{//test the if statement: is less than 1
         int result = validateInputFromClient(properties.getProperty("invalidInputNegative"));
         assertEquals(0, result);
     }
 
     @Test
-    void testInvalidStringInput() throws Exception{//test the catch: NumberFormatException
-//        int result = validateInputFromClient("xyz");
+    void testInvalidStringInput() throws IOException{//test the catch: NumberFormatException
         int result = validateInputFromClient(properties.getProperty("invalidStringInput"));
         assertEquals(-1, result);
     }
 
     @Test
-    void testInvalidDecimalInput() throws Exception{
-//        int result = validateInputFromClient("3.1416");
+    void testInvalidDecimalInput() throws IOException{
         int result = validateInputFromClient(properties.getProperty("invalidDecimalInput"));
         assertEquals(-1, result);
     }
 }
 class ServerReadPoemTest {
-
-//    private static final String filePath = System.getProperty("user.dir") + "\\src\\test\\resources\\Haiku.txt";
     private static final String filePath = ServerPoemLine.class.getClassLoader().getResource("Haiku.txt").getPath();
-//    private static final String emptyFile = System.getProperty("user.dir") + "\\src\\test\\resources\\Empty.txt";
     private static final String emptyFile = ServerPoemLine.class.getClassLoader().getResource("Empty.txt").getPath();
     private ServerPoemLine poemReader;
 
     @BeforeEach
-    void setUp() {
-        // Initialize the PoemReader instance
+    void setUp() {// Initialize the PoemReader instance
         poemReader = new ServerPoemLine();
         poemReader.setFilePath(filePath);
     }
@@ -101,14 +90,12 @@ class ServerReadPoemTest {
 
     @Test
     void testReadPoemInvalidLine() throws IOException {
-        // Test that requesting a non-existent line returns null
         String result = poemReader.readPoem(100);
         assertNull(result);
     }
 
     @Test
     void testReadPoemInvalidLineNegative() throws IOException {
-        // Test that requesting a non-existent line returns null
         String result = poemReader.readPoem(-2);
         assertNull(result);
     }
@@ -119,33 +106,5 @@ class ServerReadPoemTest {
         String result = poemReader.readPoem(1);
         assertNull(result);// Expect null since the file is empty
     }
-
-//    @Test
-//    void testReadPoemEmptyFile() throws IOException {
-//        // Test with an empty file
-//        poemReader.setFilePath(filePath);
-//
-//        int lineNumber = 1;
-//        String result = poemReader.readPoem(lineNumber);
-//        assertNull(result);
-//    }
-
-//    @Test
-//    public void testReadPoemLine2Exists() throws IOException {
-//        String expectedLine = "Are losing theirs and blaming it on you,";
-//        assertEquals(expectedLine.trim(), readPoem(2).trim());
-//    }
-//
-//    @Test
-//    public void testReadPoemLine34Exists() throws IOException {
-//        String expectedLine = "Yours is the Earth and everything that’s in it,";
-//        assertEquals(expectedLine.trim(), readPoem(34).trim());
-//    }
-//    @Test
-//    public void testReadPoemDoesNotExist() throws IOException {
-//        String expectedLine = null;
-//        String actualLine = readPoem(37);
-//        assertEquals(expectedLine, actualLine);
-//    }
 }
 

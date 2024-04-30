@@ -17,14 +17,14 @@ public class ServerPoemLine {
     private static int defaultValue;
     private static String poemLine;
 
-    public static int handleLineNumberFromClient() throws Exception {
+    public static int handleLineNumberFromClient() throws IOException {
         clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
         String input = clientInput.readLine();
         lineNumber = validateInputFromClient(input);
         return lineNumber;
     }
 
-    public static int validateInputFromClient(String input) throws Exception{
+    public static int validateInputFromClient(String input) throws IOException{
         try {
             int lineNumber = Integer.parseInt(input);
             if (lineNumber < 1) {
@@ -42,7 +42,6 @@ public class ServerPoemLine {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-
     public static String readPoem(int lineNumber) throws IOException {
         int lineCounter = 0;
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {

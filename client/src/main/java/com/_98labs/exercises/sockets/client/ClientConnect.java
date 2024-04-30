@@ -9,7 +9,7 @@ public class ClientConnect {
     private static final Logger clientLogger = LogManager.getLogger(ClientConnect.class);
     private static int port;
     private static String localhost;
-    public static Socket connectToServer() throws Exception {
+    public static Socket connectToServer() throws IOException {
         port = Integer.parseInt(LoadProperties.portProperty());
         localhost = LoadProperties.hostProperty();
         clientLogger.info("Client started... \n");
