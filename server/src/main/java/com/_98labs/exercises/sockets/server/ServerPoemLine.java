@@ -29,8 +29,7 @@ public class ServerPoemLine {
             poemLineLogger.error("Error reading poem file: " + e.getMessage());
         }
     }
-    static {loadPoem();
-        System.out.println(poemLines);}//initialize the loadPoem into memory
+    static {loadPoem();}//initialize the loadPoem into memory
 
     public static int handleLineNumberFromClient() throws IOException {
         clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
