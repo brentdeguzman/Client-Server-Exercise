@@ -2,9 +2,10 @@ package com._98labs.exercises.sockets.server;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.*;
-import java.util.Properties;
 
 public class ServerPoemLine {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLine.class);
@@ -15,7 +16,21 @@ public class ServerPoemLine {
     private static BufferedReader clientInput;
     private static int lineNumber;
     private static int defaultValue;
-    private static String poemLine;
+    private static final List<String> poemLines = new ArrayList<>();//dynamic array for storing the elements
+
+    private static void loadPoem() {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = fileReader.readLine()) != null) {
+                poemLines.add(line);
+            }//line is successfully read and is not null, it is added to list
+            poemLineLogger.info("Poem file loaded into memory.");
+        } catch (IOException e) {
+            poemLineLogger.error("Error reading poem file: " + e.getMessage());
+        }
+    }
+    static {loadPoem();
+        System.out.println(poemLines);}//initialize the loadPoem into memory
 
     public static int handleLineNumberFromClient() throws IOException {
         clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
@@ -39,21 +54,19 @@ public class ServerPoemLine {
         }
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-    public static String readPoem(int lineNumber) throws IOException {
-        int lineCounter = 0;
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
-            while ((poemLine = fileReader.readLine()) != null) {
-                lineCounter++;
-                if (lineNumber == lineCounter) {
-                    poemLineLogger.info(poemLine);
-                    return poemLine;
-                }
-            }
+//    public void setFilePath(String filePath) {
+//        this.filePath = filePath;
+//    }
+    public static String readPoem(int lineNumber) {
+        if (lineNumber < 1) {
             poemLineLogger.warn("Poem line does not exist.");
-            return poemLine;
+            return null;
+        } else if (lineNumber > poemLines.size()) {//number of element from list
+            poemLineLogger.warn("Requested poem line exceed.");
+            return null;
         }
+        String line = poemLines.get(lineNumber - 1);//adjusted for zero-based index array
+        poemLineLogger.info(line);
+        return line;
     }
 }

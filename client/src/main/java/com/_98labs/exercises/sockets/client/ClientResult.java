@@ -12,6 +12,6 @@ public class ClientResult {
     public static void displayResult(Socket socket) throws IOException {
         BufferedReader serverInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         //allows client to receive data from the server, reads input
-        clientResultLogger.info(serverInput.readLine()+"\n");
+        clientResultLogger.info(serverInput.readLine());
     }
 }
