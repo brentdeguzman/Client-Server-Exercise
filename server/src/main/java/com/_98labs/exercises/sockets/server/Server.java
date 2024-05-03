@@ -14,7 +14,7 @@ public class Server {
         try {
             ServerConnection.establishConnection();
             while (true) {
-                int lineNumber = ServerPoemLine.handleLineNumberFromClient();
+                int lineNumber = ServerPoemLineEager.handleLineNumberFromClient();
                 if(lineNumber == -1){
                     serverLogger.info("Connection was terminated.");
                     break;

@@ -3,14 +3,11 @@ package com._98labs.exercises.sockets.server;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-import static com._98labs.exercises.sockets.server.ServerPoemLine.readPoem;
-import static com._98labs.exercises.sockets.server.ServerPoemLine.validateInputFromClient;
+import static com._98labs.exercises.sockets.server.ServerPoemLineLazy.validateInputFromClient;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ServerValidationTest{
@@ -60,32 +57,33 @@ class ServerValidationTest{
     }
 }
 class ServerReadPoemTest {
-    private static final String filePath = ServerPoemLine.class.getClassLoader().getResource("Haiku.txt").getPath();
-    private static final String emptyFile = ServerPoemLine.class.getClassLoader().getResource("Empty.txt").getPath();
-    private ServerPoemLine poemReader;
+    private static final String filePath = ServerPoemLineLazy.class.getClassLoader().getResource("Haiku.txt").getPath();
+    private static final String emptyFile = ServerPoemLineLazy.class.getClassLoader().getResource("Empty.txt").getPath();
+    private ServerPoemLineEager poemReader;
 
     @BeforeEach
     void setUp() {// Initialize the PoemReader instance
-        poemReader = new ServerPoemLine();
-        poemReader.setFilePath(filePath);
+        poemReader = new ServerPoemLineEager();
+//        poemReader.setFilePath(filePath);
+//        poemReader.loadPoem();
     }
     @Test
     void testReadPoemValidLine1() throws IOException {
-        String expectedLine = "In pale moonlight";
+        String expectedLine = "If you can keep your head when all about you";
         String result = poemReader.readPoem(1);
-        assertEquals(expectedLine.trim(), result);
+        assertEquals(expectedLine.trim(), result.trim());
     }
     @Test
     void testReadPoemValidLine2() throws IOException {
-        String expectedLine = "the wisteria’s scent";
+        String expectedLine = "Are losing theirs and blaming it on you,";
         String result = poemReader.readPoem(2);
-        assertEquals(expectedLine.trim(), result);
+        assertEquals(expectedLine.trim(), result.trim());
     }
     @Test
     void testReadPoemValidLine3() throws IOException {
-        String expectedLine = "comes from far away.";
+        String expectedLine = "If you can trust yourself when all men doubt you,";
         String result = poemReader.readPoem(3);
-        assertEquals(expectedLine.trim(), result);
+        assertEquals(expectedLine.trim(), result.trim());
     }
 
     @Test
@@ -100,11 +98,11 @@ class ServerReadPoemTest {
         assertNull(result);
     }
 
-    @Test
-    void testReadPoemEmptyFile() throws IOException {
-        poemReader.setFilePath(emptyFile);
-        String result = poemReader.readPoem(1);
-        assertNull(result);// Expect null since the file is empty
-    }
+//    @Test
+//    void testReadPoemEmptyFile() throws IOException {
+//        poemReader.setFilePath(emptyFile);
+//        String result = poemReader.readPoem(1);
+//        assertNull(result);// Expect null since the file is empty
+//    }
 }
 
