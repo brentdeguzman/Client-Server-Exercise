@@ -15,9 +15,11 @@ public class ServerPoemEager {
     //getPath() -> convert URL object to string
     //getResources() -> returns a URL object representing the location of the resource
     //getClassLoader() -> loads classes from the target folder
-    private static List<String> poemLines = new ArrayList<>();//dynamic array for storing the elements
+    private static List<String> poemLines;//dynamic array for storing the elements
 
     public static void loadPoem() {
+        if (poemLines != null)
+            return;
         poemLines = new ArrayList<>();
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
             String line;
