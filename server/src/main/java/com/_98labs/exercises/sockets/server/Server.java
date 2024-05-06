@@ -11,10 +11,15 @@ public class Server {
     public static Socket clientSocket;
 
     public static void main(String[] args){
+        int lineNumber;
         try {
             ServerConnection.establishConnection();
             while (true) {
-                int lineNumber = ServerPoemLineEager.handleLineNumberFromClient();
+                if (LoadProperties.eagerProperty().equals("isEnabled")){
+                    lineNumber = ServerPoemLineEager.handleLineNumberFromClient();
+                }else{
+                    lineNumber = ServerPoemLineLazy.handleLineNumberFromClient();
+                }
                 if(lineNumber == -1){
                     serverLogger.info("Connection was terminated.");
                     break;

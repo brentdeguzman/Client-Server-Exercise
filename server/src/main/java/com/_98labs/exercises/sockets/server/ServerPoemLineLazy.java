@@ -17,26 +17,6 @@ public class ServerPoemLineLazy {
     private static int lineNumber;
     private static int defaultValue;
     private static Map<Integer, String> poemLines = new HashMap<>();
-    public static String lazyGetPoemLine(int lineNumber) {
-
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
-            int currentLineNumber = 0;
-            String line;
-            while ((line = fileReader.readLine()) != null) {
-                currentLineNumber++;
-                if (currentLineNumber == lineNumber) {
-                    poemLineLogger.info("Line " + lineNumber + " cached.");
-                    poemLines.put(lineNumber,line);
-                    System.out.println(poemLines);
-                    return line;
-                }
-            }
-            poemLineLogger.warn("Line " + lineNumber + " not found in the poem file.");
-        } catch (IOException e) {
-            poemLineLogger.error("Error reading poem file: " + e.getMessage());
-        }
-        return null; //lineNumber exceeds
-    }
 
     public static int handleLineNumberFromClient() throws IOException {
         clientInput = new BufferedReader(new InputStreamReader(Server.clientSocket.getInputStream()));
@@ -59,4 +39,23 @@ public class ServerPoemLineLazy {
             return terminateValue; //Invalid input (not an integer)
         }
     }
+    public static String lazyGetPoemLine(int lineNumber) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+            int currentLineNumber = 0;
+            String line;
+            while ((line = fileReader.readLine()) != null) {
+                currentLineNumber++;
+                if (currentLineNumber == lineNumber) {
+                    poemLines.put(lineNumber,line);
+                    poemLineLogger.info(poemLines);
+                    return line;
+                }
+            }
+            poemLineLogger.warn("Line " + lineNumber + " not found.");
+        } catch (IOException e) {
+            poemLineLogger.error("Poem file error: " + e.getMessage());
+        }
+        return null; //lineNumber exceeds
+    }
+
 }

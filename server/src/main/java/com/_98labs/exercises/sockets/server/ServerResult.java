@@ -12,7 +12,11 @@ public class ServerResult {
     private static  String poemLine;
     public static void sendResult(int lineNumber) throws IOException {
         serverOutput = new PrintWriter(Server.clientSocket.getOutputStream(), true);//allows server to send data back to the client
-        poemLine = ServerPoemLineEager.readPoem(lineNumber);
+        if(LoadProperties.eagerProperty().equals("isEnabled")){
+            poemLine = ServerPoemLineEager.readPoem(lineNumber);
+        }else{
+            poemLine = ServerPoemLineLazy.lazyGetPoemLine(lineNumber);
+        }
         String result = lineNumber + getSuffix(lineNumber) + " Line: " + poemLine;
         resultLogger.info(result);
         serverOutput.println(result);

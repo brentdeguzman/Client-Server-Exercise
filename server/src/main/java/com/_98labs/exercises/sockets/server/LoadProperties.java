@@ -26,4 +26,7 @@ public class LoadProperties {
     public static String terminateProperty() throws IOException{
         return getProperty("terminateValue");
     }
+    public static String eagerProperty() throws IOException{
+        return getProperty("eagerLoading");
+    }
 }
