@@ -13,9 +13,9 @@ public class ServerResult {
     public static void sendResult(int lineNumber) throws IOException {
         serverOutput = new PrintWriter(Server.clientSocket.getOutputStream(), true);//allows server to send data back to the client
         if(LoadProperties.eagerProperty().equals("isEnabled")){
-            poemLine = ServerPoemLineEager.readPoem(lineNumber);
+            poemLine = ServerPoemEager.readPoem(lineNumber);
         }else{
-            poemLine = ServerPoemLineLazy.lazyGetPoemLine(lineNumber);
+            poemLine = ServerPoemLazy.getPoemLine(lineNumber);
         }
         String result = lineNumber + getSuffix(lineNumber) + " Line: " + poemLine;
         resultLogger.info(result);

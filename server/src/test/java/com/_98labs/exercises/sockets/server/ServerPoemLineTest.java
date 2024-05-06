@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static com._98labs.exercises.sockets.server.ServerPoemLineLazy.validateInputFromClient;
+import static com._98labs.exercises.sockets.server.HandleClientInput.validateInputFromClient;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ServerValidationTest{
@@ -57,13 +57,13 @@ class ServerValidationTest{
     }
 }
 class ServerReadPoemTest {
-    private static final String filePath = ServerPoemLineLazy.class.getClassLoader().getResource("Haiku.txt").getPath();
-    private static final String emptyFile = ServerPoemLineLazy.class.getClassLoader().getResource("Empty.txt").getPath();
-    private ServerPoemLineEager poemReader;
+    private static final String filePath = ServerPoemLazy.class.getClassLoader().getResource("Haiku.txt").getPath();
+    private static final String emptyFile = ServerPoemLazy.class.getClassLoader().getResource("Empty.txt").getPath();
+    private ServerPoemEager poemReader;
 
     @BeforeEach
     void setUp() {// Initialize the PoemReader instance
-        poemReader = new ServerPoemLineEager();
+        poemReader = new ServerPoemEager();
 //        poemReader.setFilePath(filePath);
 //        poemReader.loadPoem();
     }

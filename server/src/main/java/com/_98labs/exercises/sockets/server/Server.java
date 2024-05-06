@@ -15,11 +15,13 @@ public class Server {
         try {
             ServerConnection.establishConnection();
             while (true) {
-                if (LoadProperties.eagerProperty().equals("isEnabled")){
-                    lineNumber = ServerPoemLineEager.handleLineNumberFromClient();
-                }else{
-                    lineNumber = ServerPoemLineLazy.handleLineNumberFromClient();
-                }
+                lineNumber = HandleClientInput.handleLineNumberFromClient();
+
+                if (LoadProperties.eagerProperty().equals("isEnabled"))
+                   new ServerPoemEager();
+                else
+                    new ServerPoemLazy();
+
                 if(lineNumber == -1){
                     serverLogger.info("Connection was terminated.");
                     break;
