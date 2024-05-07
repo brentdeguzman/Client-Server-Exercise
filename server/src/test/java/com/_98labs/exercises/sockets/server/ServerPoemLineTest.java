@@ -10,12 +10,12 @@ import java.util.Properties;
 import static com._98labs.exercises.sockets.server.HandleClientInput.validateInputFromClient;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ServerValidationTest{
+class InputValidationTest{
     private Properties properties;
     @BeforeEach
     void setUp() throws IOException {// Load properties file
         properties = new Properties();
-        String propertiesFilePath = ServerValidationTest.class.getClassLoader().getResource("serverConfig.properties").getPath();
+        String propertiesFilePath = InputValidationTest.class.getClassLoader().getResource("serverConfig.properties").getPath();
         try (FileInputStream readConfig = new FileInputStream(propertiesFilePath)) {
             properties.load(readConfig);
         }
@@ -56,16 +56,12 @@ class ServerValidationTest{
         assertEquals(-1, result);
     }
 }
-class ServerReadPoemTest {
-    private static final String filePath = ServerPoemLazy.class.getClassLoader().getResource("Haiku.txt").getPath();
-    private static final String emptyFile = ServerPoemLazy.class.getClassLoader().getResource("Empty.txt").getPath();
+class EagerReadPoemTest {
     private ServerPoemEager poemReader;
 
     @BeforeEach
     void setUp() {// Initialize the PoemReader instance
         poemReader = new ServerPoemEager();
-//        poemReader.setFilePath(filePath);
-//        poemReader.loadPoem();
     }
     @Test
     void testReadPoemValidLine1() throws IOException {
@@ -97,12 +93,45 @@ class ServerReadPoemTest {
         String result = poemReader.readPoem(-2);
         assertNull(result);
     }
-
-//    @Test
-//    void testReadPoemEmptyFile() throws IOException {
-//        poemReader.setFilePath(emptyFile);
-//        String result = poemReader.readPoem(1);
-//        assertNull(result);// Expect null since the file is empty
-//    }
 }
+class LazyReadPoemTest {
+    private ServerPoemLazy poemReader;
 
+    @BeforeEach
+    void setUp() {// Initialize the PoemReader instance
+        poemReader = new ServerPoemLazy();
+    }
+
+    @Test
+    void testReadPoemValidLine1() throws IOException {
+        String expectedLine = "If you can keep your head when all about you";
+        String result = poemReader.getPoemLine(1);
+        assertEquals(expectedLine.trim(), result.trim());
+    }
+
+    @Test
+    void testReadPoemValidLine2() throws IOException {
+        String expectedLine = "Are losing theirs and blaming it on you,";
+        String result = poemReader.getPoemLine(2);
+        assertEquals(expectedLine.trim(), result.trim());
+    }
+
+    @Test
+    void testReadPoemValidLine3() throws IOException {
+        String expectedLine = "If you can trust yourself when all men doubt you,";
+        String result = poemReader.getPoemLine(3);
+        assertEquals(expectedLine.trim(), result.trim());
+    }
+
+    @Test
+    void testReadPoemInvalidLine() throws IOException {
+        String result = poemReader.getPoemLine(100);
+        assertNull(result);
+    }
+
+    @Test
+    void testReadPoemInvalidLineNegative() throws IOException {
+        String result = poemReader.getPoemLine(-2);
+        assertNull(result);
+    }
+}
