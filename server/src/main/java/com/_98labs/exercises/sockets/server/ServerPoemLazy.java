@@ -13,19 +13,20 @@ public class ServerPoemLazy {
     //getResources() -> returns a URL object representing the location of the resource
     //getClassLoader() -> loads classes from the target folder
     private static Map<Integer, String> poemLines = new HashMap<>();
+    //stores poem lines with their line number as the key and the line of text as the value
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLazy.class);
 
     public static String getPoemLine(int lineNumber) {
         if (poemLines.containsKey(lineNumber)) {
             return poemLines.get(lineNumber);
-        }
+        }//check if lineNumber is already present
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
             int currentLineNumber = 0;
             String line;
             while ((line = fileReader.readLine()) != null) {
                 currentLineNumber++;
                 if (currentLineNumber == lineNumber) {
-                    poemLines.put(lineNumber,line);
+                    poemLines.put(lineNumber,line);//stored in the poemLines
                     poemLineLogger.info(poemLines);
                     return line;
                 }
