@@ -16,6 +16,9 @@ public class ServerPoemLazy {
     private static final Logger poemLineLogger = LogManager.getLogger(ServerPoemLazy.class);
 
     public static String getPoemLine(int lineNumber) {
+        if (poemLines.containsKey(lineNumber)) {
+            return poemLines.get(lineNumber);
+        }
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
             int currentLineNumber = 0;
             String line;
